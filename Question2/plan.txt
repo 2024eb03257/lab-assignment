@@ -1,0 +1,5 @@
+Project Alpha: Weekly Tasks
+1. Complete System Documentation
+2. Test Backup Procedures
+3. Update Security Poilicies
+Deadline: Friday EOD
