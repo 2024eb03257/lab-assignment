@@ -1,0 +1,38 @@
+Directory Structure Created in Question 2
+
+Initial Structure (before operations):
+~/ (home directory)
+└── (empty)
+
+After Command 1: mkdir ~/documents
+~/ 
+└── documents/
+
+After Command 2-5: File creation and operations
+~/documents/
+├── plan.txt
+└── plan_copy.txt
+
+After Command 6: Directory rename
+~/ 
+└── project_documents/
+    ├── plan.txt
+    └── plan_copy.txt
+
+After Command 7: Create archive
+~/project_documents/
+├── plan.txt
+├── plan_copy.txt
+└── archive/
+
+After Command 8: Move file to archive
+~/project_documents/
+├── plan.txt
+└── archive/
+    └── plan_copy.txt
+
+FINAL STRUCTURE:
+~/project_documents/
+├── plan.txt
+└── archive/
+    └── plan_copy.txt
