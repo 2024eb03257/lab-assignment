@@ -111,10 +111,6 @@ Set-Cookie: AEC=AaJma5s3NRDyiU5RHmr0oWfGWFjMRt8uCpns8F_DWPQrLb0Kuf70xU7oNw; expi
 Set-Cookie: NID=527=ph3zttENDt5tx-tzczyfOyZnG29h_3SFuz3HhiEDJUN8dS-ieshiS1urt6Zl4rK5_651kYmx-LucfYR7pRdZCvFRLU0MIR99XdEJqcNE5l1KsqDe6qKReiSJRtrke9pmjyf3JYjeNLDqkjUlQkNKGbiQCa8uLlLEwp_4w7fOqEjLZxnzX9rPeXl_bqigK5hNci4y-vtefO_c9ssKAODRw4QK850Y; expires=Fri, 03-Jul-2026 09:47:57 GMT; path=/; domain=.google.com; HttpOnly
 Transfer-Encoding: chunked
 
---- localhost ping statistics ---
-4 packets transmitted, 4 received, 0% packet loss, time 3061ms
-rtt min/avg/max/mdev = 0.037/0.040/0.045/0.007 ms
-
 # COMMAND 10: System Health Awareness
 
 $ uptime
