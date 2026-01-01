@@ -1,1 +1,41 @@
+# Explanation for Question 4 Commands
 
+# Command 1: System Uptime Verification
+
+**Explanation:** Used `uptime`, `/proc/uptime`, and `who -b` to display system uptime. `uptime` shows time since last boot, current users, and load averages. `/proc/uptime` provides raw uptime in seconds, while `who -b` shows exact boot time. This helps system administrators monitor system stability and plan maintenance windows.
+
+# Command 2: User Process Listing
+
+**Explanation:** Used `ps -u $(whoami)` to list all processes owned by the current user. The command shows PID, TTY, time, and command name. Adding `-o pid,ppid,cmd` displays parent process IDs and full command paths. Process monitoring is essential for troubleshooting, identifying resource usage, and managing system performance.
+
+# Command 3: CPU Usage Analysis
+
+**Explanation:** Used `ps` with `-o pid,pcpu,cmd --sort=-pcpu` to identify highest CPU-consuming processes, and `top -u $(whoami)` for real-time monitoring. Sorting by CPU percentage (`-pcpu`) helps quickly spot resource-intensive processes that may need optimization or termination to maintain system responsiveness.
+
+# Command 4: Background Process Execution
+
+**Explanation:** Demonstrated background job management using `&` operator to run `sleep` in background, `jobs -l` to list background jobs, and `fg` to bring to foreground. Background processes allow multitasking without blocking the terminal, useful for long-running tasks while continuing other work.
+
+# Command 5: Process Priority Management
+
+**Explanation:** Used `renice` to change process priority (niceness) from default 0 to 10 (lower priority). Higher niceness values give lower CPU priority. The `ps -o pid,ni,cmd` shows niceness values. Priority management ensures critical processes get resources while less important tasks run in background.
+
+# Command 6: Memory Usage Monitoring
+
+**Explanation:** Used `free -h` for human-readable memory summary, `/proc/meminfo` for detailed kernel memory statistics, and `ps` with RSS (Resident Set Size) to show actual physical memory used by processes. Memory monitoring prevents system slowdowns and identifies memory leaks or inefficient applications.
+
+# Command 7: Disk Space Inspection
+
+**Explanation:** Used `df -h $HOME` to check disk space on home directory filesystem, `df -hT` to show filesystem type, and `df -i` for inode usage. Regular disk space checks prevent "disk full" errors, help plan storage expansion, and identify space-hogging directories for cleanup.
+
+# Command 8: Shell Identification
+
+**Explanation:** Used multiple methods: `$SHELL` environment variable, `ps -p $$` to show current shell process, `$0` for shell name, and `$SHELL --version` for version info. Knowing the shell is crucial for scripting, understanding available features, and troubleshooting command compatibility issues.
+
+# Command 9: Output Redirection
+
+**Explanation:** Created `system_report.txt` using `>` to overwrite and `>>` to append multiple command outputs. Redirected `uptime`, `free -h`, `df -h`, and `ps` outputs to create a comprehensive system report. Output redirection is fundamental for logging, automation, and generating reports in system administration.
+
+# Command 10: Disk Usage Visualization
+
+**Explanation:** Demonstrated `ncdu` (NCurses Disk Usage) as an interactive alternative to `du`. While `du` provides text output, `ncdu` offers a visual interface with navigation, sorting, and deletion capabilities. For systems without `ncdu`, showed `du -h --max-depth=1 | sort -hr` as a functional alternative for identifying large directories.
