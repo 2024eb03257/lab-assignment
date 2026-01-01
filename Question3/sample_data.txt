@@ -1,0 +1,52 @@
+Linux File System Analysis Project
+
+Project Overview:
+This document serves as educational material for understanding Linux file system 
+concepts, specifically focusing on hard links, symbolic links, and inode management.
+
+Created: $(date)
+Author: System Administration Training Program
+Purpose: Educational demonstration for Linux systems engineering lab
+
+Key Concepts to Demonstrate:
+1. Hard Links - Multiple directory entries pointing to same inode
+2. Symbolic Links - Path references to target files
+3. Inodes - File system metadata structures
+4. Link Counts - Tracking multiple references to same data
+5. File Metadata - Comprehensive file information
+
+Technical Specifications:
+- File System Type: ext4
+- Block Size: 4096 bytes
+- Inode Size: 256 bytes
+- Default Permissions: 0644 (rw-r--r--)
+
+Experiment Parameters:
+- Original File: sample_data.txt
+- Hard Link: sample_hard.txt (shares same inode)
+- Symbolic Link: sample_soft.txt (different inode, contains path)
+
+Expected Observations:
+1. sample_data.txt and sample_hard.txt will share identical inode number
+2. sample_soft.txt will have different inode number
+3. Link count for original file will increase from 1 to 2 after hard link creation
+4. Deleting symbolic link will not affect original file
+5. File size remains consistent across hard links
+
+Educational Value:
+This exercise demonstrates fundamental file system concepts including:
+- How Linux stores file metadata separately from data
+- The difference between hard and symbolic links
+- Inode usage and management
+- File system efficiency through link sharing
+
+Additional Notes:
+- All operations are performed within user space
+- No system configuration changes required
+- Outputs will vary based on actual system environment
+- This file serves as baseline for comparative analysis
+
+Project Code: FS-EDU-2024-LAB3
+Instructor: Linux Systems Engineering Department
+Student: [Your Name]
+Course: Advanced File Systems and Storage Management
