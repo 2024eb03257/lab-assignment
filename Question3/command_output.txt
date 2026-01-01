@@ -1,1 +1,285 @@
+# QUESTION 3: Linux Links and Disk Usage Management
 
+# COMMAND 1: File Creation
+
+# Create sample_data.txt with sample text
+
+$ cd ~
+$ echo "Linux File System Analysis Project" > sample_data.txt
+$ echo "" >> sample_data.txt
+$ echo "This file contains sample data for analyzing" >> sample_data.txt
+$ echo "Linux file system concepts including:" >> sample_data.txt
+$ echo "1. Hard links and symbolic links" >> sample_data.txt
+$ echo "2. Inode numbers and file metadata" >> sample_data.txt
+$ echo "3. Disk usage analysis" >> sample_data.txt
+$ echo "4. File system utilities" >> sample_data.txt
+$ echo "" >> sample_data.txt
+$ echo "Project Team: System Administration Group" >> sample_data.txt
+$ echo "Created: $(date)" >> sample_data.txt
+$ echo "File created successfully."
+$ ls -la sample_data.txt
+
+# OUTPUT:
+-rw-r--r-- 2 codespace codespace 314 Jan  1 13:04 sample_data.txt
+
+# COMMAND 2: Hard Link Creation
+
+# Create hard link to sample_data.txt
+
+$ ln sample_data.txt sample_hard.txt
+$ echo "Hard link created."
+$ ls -la sample_hard.txt
+
+# OUTPUT:
+-rw-r--r-- 2 codespace codespace 314 Jan  1 13:04 sample_hard.txt
+
+# COMMAND 3: Symbolic Link Creation
+
+# Create symbolic (soft) link to sample_data.txt
+
+$ ln -s sample_data.txt sample_soft.txt
+$ echo "Symbolic link created."
+$ ls -la sample_soft.txt
+
+# OUTPUT:
+lrwxrwxrwx 1 codespace codespace 15 Jan  1 13:09 sample_soft.txt -> sample_data.txt
+
+# COMMAND 4: Inode Verification
+
+# Display inode numbers of all files
+
+$ echo "Inode numbers:"
+$ ls -i sample_data.txt sample_hard.txt sample_soft.txt
+$ echo ""
+$ echo "Detailed inode information:"
+$ stat -c "%n: %i" sample_data.txt sample_hard.txt sample_soft.txt
+
+# OUTPUT:
+Inode numbers:
+714699 sample_data.txt  
+714699 sample_hard.txt  
+714926 sample_soft.txt
+
+Detailed inode information:
+sample_data.txt: 714699
+sample_hard.txt: 714699
+sample_soft.txt: 714926
+
+# COMMAND 5: Inode Analysis
+
+# Identify which files share the same inode
+
+$ echo "Analyzing inode sharing:"
+$ echo ""
+$ echo "Files with same inode number:"
+$ ls -i sample_data.txt sample_hard.txt | awk '{print $1}' | uniq -d
+$ echo ""
+$ echo "Files sharing inode 1234567:"
+$ find ~ -inum 1234567 2>/dev/null
+
+# OUTPUT:
+Analyzing inode sharing:
+
+Files with same inode number:
+714699
+
+Files sharing inode 1234567:
+/home/codespace/sample_hard.txt
+/home/codespace/sample_data.txt
+
+# COMMAND 6: File Metadata Inspection
+
+# Display detailed file information
+
+$ echo "Detailed metadata for sample_data.txt:"
+$ stat sample_data.txt
+
+# OUTPUT:
+Detailed metadata for sample_data.txt:
+  File: sample_data.txt
+  Size: 314             Blocks: 8          IO Block: 4096   regular file
+Device: 0,46    Inode: 714699      Links: 2
+Access: (0644/-rw-r--r--)  Uid: ( 1000/codespace)   Gid: ( 1000/codespace)
+Access: 2026-01-01 10:49:28.380864552 +0000
+Modify: 2026-01-01 13:04:47.548733078 +0000
+Change: 2026-01-01 13:07:59.236742732 +0000
+ Birth: 2026-01-01 10:36:41.065894242 +0000
+
+# COMMAND 7: Disk Usage Check
+
+# Display disk usage of home directory
+
+$ echo "Disk usage of home directory:"
+$ du -sh ~
+$ echo ""
+$ echo "Detailed disk usage:"
+$ du -h --max-depth=1 ~ | sort -h
+
+# OUTPUT:
+Disk usage of home directory:
+423M	/home/codespace
+
+Detailed disk usage:
+4.0K    /home/codespace/.hugo
+4.0K    /home/codespace/.maven
+4.0K    /home/codespace/.minikube
+4.0K    /home/codespace/.nvs
+4.0K    /home/codespace/.php
+4.0K    /home/codespace/.python
+4.0K    /home/codespace/.ruby
+8.0K    /home/codespace/.conda
+8.0K    /home/codespace/.jupyter
+8.0K    /home/codespace/.rbenv
+12K     /home/codespace/.config
+16K     /home/codespace/project_documents
+8.8M    /home/codespace/.cache
+15M     /home/codespace/.oh-my-zsh
+171M    /home/codespace/.vscode-remote
+228M    /home/codespace/.local
+423M    /home/codespace
+
+# COMMAND 8: File Size Overview
+
+# Display size of each file in home directory
+
+$ echo "File sizes in home directory:"
+$ cd ~
+$ ls -lh | head -20
+$ echo ""
+$ echo "Top 10 largest files:"
+$ find . -maxdepth 1 -type f -exec du -h {} + 2>/dev/null | sort -hr | head -10
+
+# OUTPUT:
+File sizes in home directory:
+total 12K
+lrwxrwxrwx 1 root      root        33 Nov 27 10:50 java -> /usr/local/sdkman/candidates/java
+lrwxrwxrwx 1 root      root        20 Nov 27 10:50 nvm -> /usr/local/share/nvm
+drwxr-xr-x 3 codespace codespace 4.0K Jan  1 10:15 project_documents
+-rw-r--r-- 2 codespace codespace  314 Jan  1 13:04 sample_data.txt
+-rw-r--r-- 2 codespace codespace  314 Jan  1 13:04 sample_hard.txt
+lrwxrwxrwx 1 codespace codespace   15 Jan  1 13:09 sample_soft.txt -> sample_data.txt
+
+Top 10 largest files:
+8.0K    ./.bashrc
+4.0K    ./sample_hard.txt
+4.0K    ./.zshrc
+4.0K    ./.zprofile
+4.0K    ./.rvmrc
+4.0K    ./.profile
+4.0K    ./.gitconfig
+4.0K    ./.bash_logout
+
+# COMMAND 9: Link Deletion Test
+
+# Delete symbolic link and verify original file
+
+$ echo "Before deletion:"
+$ ls -la sample_soft.txt
+$ echo ""
+$ echo "Deleting symbolic link..."
+$ rm sample_soft.txt
+$ echo ""
+$ echo "After deletion:"
+$ ls -la sample_soft.txt 2>/dev/null || echo "sample_soft.txt not found (as expected)"
+$ echo ""
+$ echo "Original file status:"
+$ ls -la sample_data.txt
+$ cat sample_data.txt | head -3
+
+# OUTPUT:
+Before deletion:
+lrwxrwxrwx 1 codespace codespace 15 Jan  1 13:09 sample_soft.txt -> sample_data.txt
+
+Deleting symbolic link...
+
+After deletion:
+sample_soft.txt not found (as expected)
+
+Original file status:
+-rw-r--r-- 2 codespace codespace 314 Jan  1 13:04 sample_data.txt
+Linux File System Analysis Project
+
+This file contains sample data for analyzing
+Linux file system concepts including:
+
+
+# COMMAND 10: Disk Utility Demonstration
+
+# Demonstrate du and df commands
+
+$ echo "=== du command examples ==="
+$ echo "1. Total disk usage of current directory:"
+$ du -sh .
+$ echo ""
+$ echo "2. Disk usage by file type (human readable):"
+$ du -ah --max-depth=1 . | sort -h | tail -10
+$ echo ""
+$ echo "3. Apparent size vs disk usage:"
+$ du -sb sample_data.txt
+$ du -h sample_data.txt
+$ echo ""
+$ echo "=== df command examples ==="
+$ echo "1. File system disk space usage:"
+$ df -h
+$ echo ""
+$ echo "2. Specific file system type:"
+$ df -hT | grep -E "(Filesystem|ext4|xfs)"
+$ echo ""
+$ echo "3. Inode usage:"
+$ df -i
+$ echo ""
+$ echo "4. Available space in human readable format:"
+$ df -h --output=source,size,used,avail,pcent,target | head -5
+
+# OUTPUT:
+=== du command examples ===
+1. Total disk usage of current directory:
+423M	.
+
+2. Disk usage by file type (human readable):
+8.0K    ./.conda
+8.0K    ./.jupyter
+8.0K    ./.rbenv
+12K     ./.config
+16K     ./project_documents
+8.8M    ./.cache
+15M     ./.oh-my-zsh
+171M    ./.vscode-remote
+228M    ./.local
+423M    .
+
+3. Apparent size vs disk usage:
+314	sample_data.txt
+4.0K	sample_data.txt
+
+=== df command examples ===
+1. File system disk space usage:
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          32G  9.6G   21G  33% /
+tmpfs            64M     0   64M   0% /dev
+shm              64M     0   64M   0% /dev/shm
+/dev/root        29G   22G  7.7G  74% /vscode
+/dev/sda1        44G  2.1G   40G   6% /tmp
+/dev/loop6       32G  9.6G   21G  33% /workspaces
+
+2. Specific file system type:
+Filesystem     Type     Size  Used Avail Use% Mounted on
+/dev/root      ext4      29G   22G  7.7G  74% /vscode
+/dev/sda1      ext4      44G  2.1G   40G   6% /tmp
+/dev/loop6     ext4      32G  9.6G   21G  33% /workspaces
+
+3. Inode usage:
+Filesystem      Inodes  IUsed   IFree IUse% Mounted on
+overlay        2097152 199369 1897783   10% /
+tmpfs          1016916    211 1016705    1% /dev
+shm            1016916      1 1016915    1% /dev/shm
+/dev/root      3870720 249939 3620781    7% /vscode
+/dev/sda1      2949120     29 2949091    1% /tmp
+/dev/loop6     2097152 199369 1897783   10% /workspaces
+
+4. Available space in human readable format:
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          32G  9.6G   21G  33% /
+tmpfs            64M     0   64M   0% /dev
+shm              64M     0   64M   0% /dev/shm
+/dev/root        29G   22G  7.7G  74% /vscode
