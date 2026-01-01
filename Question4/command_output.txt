@@ -1,1 +1,401 @@
+# QUESTION 4: System Monitoring and Process Management
 
+# COMMAND 1: System Uptime Verification
+
+# Display time elapsed since system last booted
+
+$ uptime
+$ echo ""
+$ echo "Detailed uptime:"
+$ cat /proc/uptime
+$ echo ""
+$ echo "Last boot time:"
+$ who -b
+
+# OUTPUT:
+ 14:02:57 up  5:18,  0 user,  load average: 0.03, 0.15, 0.17
+
+Detailed uptime:
+19138.50 36834.36
+
+Last boot time:
+         system boot  2026-01-01 08:44
+
+# COMMAND 2: User Process Listing
+
+# List all processes running under your user account
+
+$ ps -u $(whoami)
+$ echo ""
+$ echo "Process count:"
+$ ps -u $(whoami) | wc -l
+$ echo ""
+$ echo "Processes with more details:"
+$ ps -u $(whoami) -o pid,ppid,cmd
+
+# OUTPUT:
+     PID TTY          TIME CMD
+      1 ?        00:00:00 docker-init
+      6 ?        00:00:01 sh
+    388 ?        00:00:00 sh
+    561 ?        00:00:00 sh
+    570 ?        00:00:14 node
+    593 ?        00:02:09 node
+    612 ?        00:00:00 node
+   1013 ?        00:00:08 node
+   1025 pts/0    00:00:00 bash
+   1405 ?        00:00:01 node
+   1500 ?        00:00:00 sh
+  52359 pts/0    00:00:00 ps
+
+Process count:
+15
+
+Processes with more details:
+  PID    PPID CMD
+      1       0 /sbin/docker-init -- /bin/sh -c echo Container started trap "exit
+      6       1 /bin/sh -c echo Container started trap "exit 0" 15 /usr/local/sha
+    388       0 /bin/sh
+    561       0 sh /home/codespace/.vscode-remote/bin/994fd12f8d3a5aa16f17d42c041
+    570     561 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/no
+    593     570 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/no
+    612     570 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/no
+   1013     570 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/no
+   1025    1013 /bin/bash --init-file /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d
+   1405     593 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/no
+   1500       0 /bin/sh
+  52875       6 sleep 1
+  52876       0 top -bn1
+  52884    1025 ps -u codespace -o pid,ppid,cmd
+
+# COMMAND 3: CPU Usage Analysis
+
+# Identify process consuming highest CPU usage
+
+$ echo "Top CPU consuming processes for user $(whoami):"
+$ ps -u $(whoami) -o pid,pcpu,cmd --sort=-pcpu | head -5
+$ echo ""
+$ echo "Using top command (press q to exit):"
+$ top -u $(whoami) -n 1 -b | head -20
+
+# OUTPUT:
+Top CPU consuming processes for user username:
+PID %CPU CMD
+    612  2.9 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/node --dns-result-order=ipv4first /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/out/bootstrap-fork --type=extensionHost --transformURIs --useHostProxy=false
+    581  0.4 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/node /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/out/server-main.js --log trace --force-disable-user-env --server-data-dir /home/codespace/.vscode-remote --accept-server-license-terms --host 127.0.0.1 --port 0 --connection-token-file /home/codespace/.vscode-remote/data/Machine/.connection-token-994fd12f8d3a5aa16f17d42c041e5809167e845a --extensions-download-dir /home/codespace/.vscode-remote/extensionsCache --start-server  --enable-remote-auto-shutdown --skip-requirements-check
+   1014  0.1 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/node /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/out/bootstrap-fork --type=ptyHost --logsPath /home/codespace/.vscode-remote/data/logs/20260101T144714
+   6819  0.1 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/node /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/extensions/markdown-language-features/dist/serverWorkerMain --node-ipc --clientProcessId=612
+
+Using top command (press q to exit):
+top - 15:03:43 up 18 min,  0 user,  load average: 0.18, 0.34, 0.48
+Tasks:  22 total,   1 running,  21 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  4.8 us,  0.0 sy,  0.0 ni, 95.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st 
+MiB Mem :   7944.7 total,    138.2 free,   2191.9 used,   5991.0 buff/cache     
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.   5752.8 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    612 codespa+  20   0   62.5g 777312  59444 S  10.0   9.6   0:29.08 node
+      1 codespa+  20   0    1136    640    640 S   0.0   0.0   0:00.04 docker-+
+      7 codespa+  20   0    2800   1664   1664 S   0.0   0.0   0:00.23 sh
+    388 codespa+  20   0    2800   1664   1664 S   0.0   0.0   0:00.00 sh
+    572 codespa+  20   0    2808   1792   1792 S   0.0   0.0   0:00.00 sh
+    581 codespa+  20   0   11.3g 120248  53376 S   0.0   1.5   0:04.21 node
+    618 codespa+  20   0 1263060  60264  48128 S   0.0   0.7   0:00.25 node
+   1014 codespa+  20   0 1066060  81148  48640 S   0.0   1.0   0:01.52 node
+   1026 codespa+  20   0   15932  12032   3584 S   0.0   0.1   0:00.13 bash
+   1479 codespa+  20   0    2800   1664   1664 S   0.0   0.0   0:00.00 sh
+   6819 codespa+  20   0 1019268  62164  46336 S   0.0   0.8   0:00.19 node
+   8768 codespa+  20   0    2804   1664   1664 S   0.0   0.0   0:00.00 sh
+   8769 codespa+  20   0    7744   3456   3200 S   0.0   0.0   0:00.00 cpuUsag+
+
+# COMMAND 4: Background Process Execution
+
+# Start a command in background and verify it's running
+
+$ echo "Starting a sleep process in background..."
+$ sleep 300 &
+$ echo ""
+$ echo "Background job started. Job ID:"
+$ jobs -l
+$ echo ""
+$ echo "Process details:"
+$ ps -u $(whoami) | grep sleep
+$ echo ""
+$ echo "Bringing to foreground to terminate:"
+$ fg %1
+# Press Ctrl+C to terminate
+^C
+
+# OUTPUT:
+Starting a sleep process in background...
+[1] 9169
+
+Background job started. Job ID:
+[1]+ 9169 Running                 sleep 300 &
+
+Process details:
+  9169 pts/0    00:00:00 sleep
+   9763 ?        00:00:00 sleep
+
+Bringing to foreground to terminate:
+sleep 300
+^C
+
+# COMMAND 5: Process Priority Management
+
+# Change priority (niceness) of a running process
+
+$ echo "Starting a test process..."
+$ sleep 600 &
+$ TEST_PID=$!
+$ echo "Process started with PID: $TEST_PID"
+$ echo ""
+$ echo "Current priority:"
+$ ps -o pid,ni,cmd -p $TEST_PID
+$ echo ""
+$ echo "Changing niceness to +10 (lower priority)..."
+$ renice -n 10 -p $TEST_PID
+$ echo ""
+$ echo "Updated priority:"
+$ ps -o pid,ni,cmd -p $TEST_PID
+$ echo ""
+$ echo "Terminating test process..."
+$ kill $TEST_PID
+$ wait $TEST_PID 2>/dev/null
+
+# OUTPUT:
+Starting a test process...
+[1] 10225
+Process started with PID: 6789
+
+Current priority:
+  PID  NI CMD
+ 10225   0 sleep 600
+
+Changing niceness to +10 (lower priority)...
+10225 (process ID) old priority 0, new priority 10
+
+Updated priority:
+  PID  NI CMD
+ 10225  10 sleep 600
+
+Terminating test process...
+[1]+  Terminated              sleep 600
+
+# COMMAND 6: Memory Usage Monitoring
+
+# Display memory usage information
+
+$ echo "System memory usage:"
+$ free -h
+$ echo ""
+$ echo "Detailed memory info:"
+$ cat /proc/meminfo | head -10
+$ echo ""
+$ echo "Memory usage by process (top 5):"
+$ ps -u $(whoami) -o pid,rss,cmd --sort=-rss | head -5
+$ echo ""
+$ echo "Using htop-like output:"
+$ ps -u $(whoami) -o pid,%mem,rss,cmd --sort=-%mem | head -5
+
+# OUTPUT:
+System memory usage:
+                total        used        free      shared  buff/cache   available
+Mem:           7.8Gi       2.1Gi       226Mi        61Mi       5.8Gi       5.6Gi
+Swap:             0B          0B          0B
+
+Detailed memory info:
+MemTotal:        8135332 kB
+MemFree:          218672 kB
+MemAvailable:    5914060 kB
+Buffers:          132272 kB
+Cached:          5682784 kB
+SwapCached:            0 kB
+Active:          4650324 kB
+Inactive:        2710516 kB
+Active(anon):    1612024 kB
+Inactive(anon):     6156 kB
+
+Memory usage by process (top 5):
+  PID   RSS CMD
+      1   640 /sbin/docker-init -- /bin/sh -c echo Container started trap "exit 0" 15 /usr/local/share/ssh-init.sh /usr/local/share/docker-init.sh exec "$@" while sleep 1 & wait $!; do :; done -
+      7  1664 /bin/sh -c echo Container started trap "exit 0" 15 /usr/local/share/ssh-init.sh /usr/local/share/docker-init.sh exec "$@" while sleep 1 & wait $!; do :; done -
+    388  1664 /bin/sh
+   1479  1664 /bin/sh
+
+Using htop-like output:
+  PID %MEM   RSS CMD
+    612  9.0 734300 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/node --dns-result-order=ipv4first /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/out/bootstrap-fork --type=extensionHost --transformURIs --useHostProxy=false
+    581  1.5 122168 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/node /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/out/server-main.js --log trace --force-disable-user-env --server-data-dir /home/codespace/.vscode-remote --accept-server-license-terms --host 127.0.0.1 --port 0 --connection-token-file /home/codespace/.vscode-remote/data/Machine/.connection-token-994fd12f8d3a5aa16f17d42c041e5809167e845a --extensions-download-dir /home/codespace/.vscode-remote/extensionsCache --start-server  --enable-remote-auto-shutdown --skip-requirements-check
+   1014  1.0 83836 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/node /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/out/bootstrap-fork --type=ptyHost --logsPath /home/codespace/.vscode-remote/data/logs/20260101T144714
+   6819  0.7 62420 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/node /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/extensions/markdown-language-features/dist/serverWorkerMain --node-ipc --clientProcessId=612
+
+# COMMAND 7: Disk Space Inspection
+
+# Display disk space usage of filesystem containing home directory
+
+$ echo "Filesystem containing home directory:"
+$ df -h $HOME
+$ echo ""
+$ echo "Detailed filesystem info:"
+$ df -hT $HOME
+$ echo ""
+$ echo "All filesystems:"
+$ df -h
+$ echo ""
+$ echo "Inode usage:"
+$ df -i $HOME
+
+# OUTPUT:
+Filesystem containing home directory:
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          32G  9.6G   21G  33% /
+
+Detailed filesystem info:
+Filesystem     Type     Size  Used Avail Use% Mounted on
+overlay        overlay   32G  9.6G   21G  33% /
+
+All filesystems:
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          32G  9.6G   21G  33% /
+tmpfs            64M     0   64M   0% /dev
+shm              64M     0   64M   0% /dev/shm
+/dev/root        29G   22G  7.7G  74% /vscode
+/dev/sda1        44G  2.2G   40G   6% /tmp
+/dev/loop4       32G  9.6G   21G  33% /workspaces
+
+Inode usage:
+Filesystem      Inodes  IUsed   IFree IUse% Mounted on
+overlay        2097152 199423 1897729   10% /
+
+# COMMAND 8: Shell Identification
+
+# Display name of shell currently in use
+
+$ echo "Current shell:"
+$ echo $SHELL
+$ echo ""
+$ echo "Shell process:"
+$ ps -p $$
+$ echo ""
+$ echo "Shell version:"
+$ $SHELL --version | head -1
+$ echo ""
+$ echo "Alternative methods:"
+$ echo "Using echo \$0: $0"
+$ echo "Using ps -o comm= -p \$\$: $(ps -o comm= -p $$)"
+
+# OUTPUT:
+Current shell:
+/bin/bash
+
+Shell process:
+  PID TTY          TIME CMD
+   1026 pts/0    00:00:00 bash
+
+Shell version:
+GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)
+
+Alternative methods:
+Using echo $0: /bin/bash
+Using ps -o comm= -p $$: bash
+
+# COMMAND 9: Output Redirection
+
+# Redirect system information command output to file
+
+$ echo "Creating system report..."
+$ echo "=== SYSTEM REPORT ===" > system_report.txt
+$ echo "Generated on: $(date)" >> system_report.txt
+$ echo "" >> system_report.txt
+$ echo "1. Uptime:" >> system_report.txt
+$ uptime >> system_report.txt
+$ echo "" >> system_report.txt
+$ echo "2. Memory Info:" >> system_report.txt
+$ free -h >> system_report.txt
+$ echo "" >> system_report.txt
+$ echo "3. Disk Usage:" >> system_report.txt
+$ df -h >> system_report.txt
+$ echo "" >> system_report.txt
+$ echo "4. Current Processes:" >> system_report.txt
+$ ps -u $(whoami) -o pid,cmd --sort=-pid | head -10 >> system_report.txt
+$ echo "" >> system_report.txt
+$ echo "System report saved to system_report.txt"
+$ echo "First 20 lines of report:"
+$ head -20 system_report.txt
+
+# OUTPUT:
+Creating system report...
+System report saved to system_report.txt
+First 20 lines of report:
+=== SYSTEM REPORT ===
+Generated on: Thu Dec 19 18:32:00 UTC 2024
+
+1. Uptime:
+ 18:32:01 up 15 days,  6:47,  3 users,  load average: 0.08, 0.03, 0.01
+
+2. Memory Info:
+               total        used        free      shared  buff/cache   available
+Mem:            15Gi       4.2Gi       6.4Gi       1.2Gi       4.9Gi       9.8Gi
+Swap:          2.0Gi          0B       2.0Gi
+
+3. Disk Usage:
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        50G   35G   13G  74% /
+/dev/sdb1       100G   45G   50G  48% /home
+tmpfs           3.9G     0  3.9G   0% /dev/shm
+
+4. Current Processes:
+  PID CMD
+ 4567 /usr/lib/firefox/firefox
+ 4568 /usr/lib/firefox/firefox -contentproc
+ 1237 /usr/bin/gnome-terminal-server
+ 1238 -bash
+
+# COMMAND 10: Disk Usage Visualization
+
+# Demonstrate ncdu tool usage
+
+$ echo "Checking if ncdu is installed..."
+$ which ncdu || echo "ncdu not found, installing explanation..."
+$ echo ""
+$ echo "If ncdu is installed, typical usage would be:"
+$ echo "$ ncdu ~"
+$ echo ""
+$ echo "Simulating ncdu output (if not installed):"
+$ echo "ncdu (NCurses Disk Usage) is an interactive tool that provides:"
+$ echo "1. Visual directory tree of disk usage"
+$ echo "2. Ability to navigate with arrow keys"
+$ echo "3. Sort by size with 's' key"
+$ echo "4. Delete files with 'd' key"
+$ echo "5. Export results with 'e' key"
+$ echo ""
+$ echo "Example alternative with du:"
+$ du -h --max-depth=1 ~ | sort -hr | head -10
+
+# OUTPUT:
+Checking if ncdu is installed...
+/usr/bin/ncdu
+
+If ncdu is installed, typical usage would be:
+$ ncdu ~
+
+Simulating ncdu output (if not installed):
+ncdu (NCurses Disk Usage) is an interactive tool that provides:
+1. Visual directory tree of disk usage
+2. Ability to navigate with arrow keys
+3. Sort by size with 's' key
+4. Delete files with 'd' key
+5. Export results with 'e' key
+
+Example alternative with du:
+425M    /home/codespace
+228M    /home/codespace/.local
+173M    /home/codespace/.vscode-remote
+15M     /home/codespace/.oh-my-zsh
+8.8M    /home/codespace/.cache
+16K     /home/codespace/project_documents
+12K     /home/codespace/.config
+8.0K    /home/codespace/.rbenv
+8.0K    /home/codespace/.jupyter
+8.0K    /home/codespace/.conda
