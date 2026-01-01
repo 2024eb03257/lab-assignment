@@ -1,1 +1,41 @@
+# Explanation for Question 2 Commands
 
+# Command 1: mkdir ~/documents
+
+**Explanation:** Created a new directory called "documents" in my home directory using the `mkdir` command. The `~` symbol represents the home directory. Used `ls -ld` to verify the directory was created with correct permissions (drwxr-xr-x) and shows my username as owner.
+
+# Command 2: cd ~/documents && touch plan.txt
+
+**Explanation:** Changed to the documents directory using `cd` and created an empty file named "plan.txt" with `touch`. The `pwd` command confirmed my location, and `ls -la` showed the file was created with default permissions (-rw-r--r--).
+
+# Command 3: Writing content with echo
+
+**Explanation:** Used multiple `echo` commands with `>` (overwrite) and `>>` (append) to write a project migration plan into the file. This demonstrates how to create structured text files from the command line. The `cat` command displayed the complete contents.
+
+# Command 4: ls -la plan.txt && stat plan.txt
+
+**Explanation:** Displayed file metadata in two ways: `ls -la` shows basic info (permissions, owner, size, timestamp), while `stat` provides detailed technical information including inode number, block allocation, and exact access/modification times. Both confirm my username owns the file.
+
+# Command 5: cp plan.txt plan_copy.txt
+
+**Explanation:** Created an exact copy of plan.txt named plan_copy.txt using the `cp` (copy) command. The output shows both files have identical sizes (220 bytes) and timestamps, confirming successful duplication. This is useful for backups before making changes.
+
+# Command 6: mv documents project_documents
+
+**Explanation:** Renamed the directory from "documents" to "project_documents" using `mv`. When both source and destination are in the same location, `mv` performs a rename operation. This better reflects the directory's purpose for project files.
+
+# Command 7: mkdir archive
+
+**Explanation:** Created a subdirectory named "archive" within project_documents for organizing old or backup files. The `ls -la` output shows the new directory with standard permissions (drwxr-xr-x) ready for file storage.
+
+# Command 8: mv plan_copy.txt archive/
+
+**Explanation:** Moved the duplicate file into the archive subdirectory. This demonstrates file organization by separating the original working file from its backup copy. The `mv` command both removes from the original location and places in the new location.
+
+# Command 9: find project_documents -type f
+
+**Explanation:** Used `find` command to recursively list all files in the directory structure. The `tree` command (if available) provides a visual hierarchical view. This is essential for system administrators to verify file organization and locate files.
+
+# Command 10: realpath/absolute path
+
+**Explanation:** Displayed the absolute path of the moved file using `realpath` (or manual path construction). Absolute paths are crucial for scripts and configuration files as they don't depend on current working directory. This verifies the file's exact location in the filesystem.
