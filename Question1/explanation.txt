@@ -1,1 +1,41 @@
+# Explanation for Question 1 Commands
 
+# Command 1: whoami && groups
+
+**Explanation:** The `whoami` command displays my current logged-in username, confirming I'm operating under the correct user account. The `groups` command shows all Linux groups my user belongs to, which is essential for understanding my system permissions and access levels as a junior systems engineer.
+
+# Command 2: pwd && ls -la
+
+**Explanation:** `pwd` (Print Working Directory) shows my current location in the filesystem hierarchy, establishing context for subsequent operations. `ls -la` lists all files in long format including hidden files, displaying permissions, ownership, sizes, and timestamps - crucial for workspace validation and security auditing.
+
+# Command 3: echo and cat commands
+
+**Explanation:** Using `echo` with `>` redirector creates `user_info.txt` with the verification message, demonstrating basic file creation. The `cat` command displays file contents to confirm successful creation, showing both file creation and verification in one sequence.
+
+# Command 4: wc -c user_info.txt
+
+**Explanation:** The `wc -c` command counts characters in the file, including spaces and the newline character. This verifies file integrity and size, a common practice in system administration for checking configuration files and log rotations.
+
+# Command 5: man mkdir | head -20
+
+**Explanation:** Accessing the manual page for `mkdir` using `man` demonstrates how to learn command syntax and options. Piping to `head -20` shows only the first 20 lines for quick reference, highlighting the useful `-p` option that creates parent directories without errors.
+
+# Command 6: ls ~ | sort
+
+**Explanation:** Listing home directory contents using `~` shorthand and sorting alphabetically with `sort` provides organized visibility of user files. This helps system administrators quickly locate configuration files and understand user environment structure.
+
+# Command 7: grep "admin" log.txt
+
+**Explanation:** Using `grep` to search for "admin" patterns in log files demonstrates log analysis skills essential for security monitoring and troubleshooting. The command filters only matching lines, making large log files manageable for analysis.
+
+# Command 8: uname -r
+
+**Explanation:** Displaying the kernel version with `uname -r` is fundamental for system compatibility checking, security patch verification, and troubleshooting hardware driver issues. Different applications require specific kernel versions for optimal operation.
+
+# Command 9: Network Connectivity Test
+
+**Explanation:** Testing network connectivity using `curl -I https://www.google.com` demonstrates application-layer connectivity when ICMP (ping) might be blocked. The `-I` flag sends an HTTP HEAD request, retrieving only headers to verify web service availability efficiently. This shows adaptability in network troubleshooting when primary tools are unavailable.
+
+# Command 10: uptime
+
+**Explanation:** The `uptime` command provides a quick system health overview showing current time, system uptime duration, logged-in users, and load averages. Load averages below 1.0 per CPU core indicate healthy system performance, while higher values suggest potential issues.
