@@ -1,5 +1,5 @@
 # lab-assignment
-Lab Assingment Modules 1-4
+Lab Assignment Modules 1-4
 
 # Question 1: Linux Environment Verification
 
