@@ -1,1 +1,31 @@
+=== SYSTEM REPORT===
+Generated on Thu Jan  1 15:22:16 UTC 2026
 
+1. Uptime:
+ 15:23:07 up 37 min,  0 user,  load average: 0.03, 0.08, 0.19
+
+2. Memory Info:
+               total        used        free      shared  buff/cache   available
+Mem:           7.8Gi       2.2Gi       193Mi        62Mi       5.8Gi       5.6Gi
+Swap:             0B          0B          0B
+
+3. Disk Usage:
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          32G  9.6G   21G  33% /
+tmpfs            64M     0   64M   0% /dev
+shm              64M     0   64M   0% /dev/shm
+/dev/root        29G   22G  7.6G  74% /vscode
+/dev/sda1        44G  2.2G   40G   6% /tmp
+/dev/loop4       32G  9.6G   21G  33% /workspaces
+
+4. Current Processes:
+    PID CMD
+  22052 head -10
+  22051 /bin/bash /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/out/vs/base/node/cpuUsage.sh 1026
+  22050 ps -u codespace -o pid,cmd --sort=-pid
+  22049 /bin/sh -c "/vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/out/vs/base/node/cpuUsage.sh" 1026
+  22043 sleep 1
+   6819 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/node /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/extensions/markdown-language-features/dist/serverWorkerMain --node-ipc --clientProcessId=612
+   1479 /bin/sh
+   1026 /bin/bash --init-file /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration-bash.sh
+   1014 /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/node /vscode/bin/linux-x64/994fd12f8d3a5aa16f17d42c041e5809167e845a/out/bootstrap-fork --type=ptyHost --logsPath /home/codespace/.vscode-remote/data/logs/20260101T144714
