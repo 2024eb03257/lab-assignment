@@ -1,1 +1,123 @@
+# LINUX SYSTEMS ENGINEERING LAB - QUESTION 1
 
+# COMMAND 1: User Identity Verification
+
+$ whoami && groups
+
+# OUTPUT:
+codespace
+codespace docker pipx python oryx golang sdkman rvm php conda nvs nvm hugo ssh
+
+# COMMAND 2: Workspace Validation
+
+$ pwd && ls -la
+
+# OUTPUT:
+/workspaces/lab-assignment
+total 32
+drwxrwxrwx+ 7 codespace root      4096 Jan  1 09:15 .
+drwxr-xrwx+ 5 codespace root      4096 Dec 31 15:57 ..
+drwxrwxrwx+ 8 codespace root      4096 Dec 31 15:57 .git
+drwxrwxrwx+ 3 codespace codespace 4096 Jan  1 09:16 Question1
+drwxrwxrwx+ 3 codespace codespace 4096 Jan  1 09:17 Question2
+drwxrwxrwx+ 3 codespace codespace 4096 Jan  1 09:19 Question3
+drwxrwxrwx+ 3 codespace codespace 4096 Jan  1 09:21 Question4
+-rw-rw-rw-  1 codespace root        44 Dec 31 15:57 README.md
+
+# COMMAND 3: Environment Confirmation File
+
+$ echo "Linux user environment verified" > user_info.txt
+$ cat user_info.txt
+
+# OUTPUT:
+Linux user environment verified
+
+# COMMAND 4: File Integrity Check
+
+$ wc -c user_info.txt
+
+# OUTPUT:
+32 user_info.txt
+
+# COMMAND 5: Learning the Tools
+
+$ man mkdir | head -20
+
+# OUTPUT:
+MKDIR(1)                                             User Commands                                            MKDIR(1)
+
+NAME
+       mkdir - make directories
+
+SYNOPSIS
+       mkdir [OPTION]... DIRECTORY...
+
+DESCRIPTION
+       Create the DIRECTORY(ies), if they do not already exist.
+
+       Mandatory arguments to long options are mandatory for short options too.
+
+       -m, --mode=MODE
+              set file mode (as in chmod), not a=rwx - umask
+
+       -p, --parents
+              no  error if existing, make parent directories as needed, with their file modes unaffected by any -m op‐
+              tion.
+
+# COMMAND 6: Home Directory Inspection
+
+$ ls ~ | sort
+
+# OUTPUT:
+documents
+java
+nvm
+
+# COMMAND 7: Log Investigation
+
+$ echo -e "2025-12-28 09:30:12 User admin logged in from 192.168.1.100" > log.txt
+$ grep "admin" log.txt
+
+# OUTPUT:
+2025-12-28 09:30:12 User admin logged in from 192.168.1.100
+
+# COMMAND 8: System Information Check
+
+$ uname -r
+
+# OUTPUT:
+6.8.0-1030-azure
+
+# COMMAND 9: Network Connectivity Test
+
+$ ping -c 4 localhost
+
+Alternative used:
+
+curl -I http://www.google.com
+
+# OUTPUT:
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=ISO-8859-1
+Content-Security-Policy-Report-Only: object-src 'none';base-uri 'self';script-src 'nonce-GDERlmSWzu3OR0oXj25Tyw' 'strict-dynamic' 'report-sample' 'unsafe-eval' 'unsafe-inline' https: http:;report-uri https://csp.withgoogle.com/csp/gws/other-hp
+P3P: CP="This is not a P3P policy! See g.co/p3phelp for more info."
+Date: Thu, 01 Jan 2026 09:47:57 GMT
+Server: gws
+X-XSS-Protection: 0
+X-Frame-Options: SAMEORIGIN
+Expires: Thu, 01 Jan 2026 09:47:57 GMT
+Cache-Control: private
+Set-Cookie: AEC=AaJma5s3NRDyiU5RHmr0oWfGWFjMRt8uCpns8F_DWPQrLb0Kuf70xU7oNw; expires=Tue, 30-Jun-2026 09:47:57 GMT; path=/; domain=.google.com; Secure; HttpOnly; SameSite=lax
+Set-Cookie: NID=527=ph3zttENDt5tx-tzczyfOyZnG29h_3SFuz3HhiEDJUN8dS-ieshiS1urt6Zl4rK5_651kYmx-LucfYR7pRdZCvFRLU0MIR99XdEJqcNE5l1KsqDe6qKReiSJRtrke9pmjyf3JYjeNLDqkjUlQkNKGbiQCa8uLlLEwp_4w7fOqEjLZxnzX9rPeXl_bqigK5hNci4y-vtefO_c9ssKAODRw4QK850Y; expires=Fri, 03-Jul-2026 09:47:57 GMT; path=/; domain=.google.com; HttpOnly
+Transfer-Encoding: chunked
+
+--- localhost ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3061ms
+rtt min/avg/max/mdev = 0.037/0.040/0.045/0.007 ms
+
+# COMMAND 10: System Health Awareness
+
+$ uptime
+
+# OUTPUT:
+ 09:49:34 up 41 min,  0 user,  load average: 0.45, 0.35, 0.34
